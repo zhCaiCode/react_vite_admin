@@ -1,8 +1,9 @@
 import React, { memo } from "react";
 import type { ReactNode, FC } from "react";
 import styles from "./index.module.less";
-import { DownOutlined, MenuFoldOutlined } from "@ant-design/icons";
-import { Breadcrumb, Dropdown, MenuProps, Space } from "antd";
+import { MenuFoldOutlined } from "@ant-design/icons";
+import { Breadcrumb, Dropdown, MenuProps, Space, Switch } from "antd";
+import storage from "@/utils/storage";
 interface Iprops {
   children?: ReactNode;
 }
@@ -24,6 +25,12 @@ const NavHeader: FC<Iprops> = () => {
       key: "3",
     },
   ];
+  const onClick: MenuProps["onClick"] = ({ key }) => {
+    if (key === "logout") {
+      storage.remove("token");
+      location.href = "/login?callback=" + encodeURIComponent(location.href);
+    }
+  };
   return (
     <div className={styles.navHeader}>
       <div className={styles.left}>
@@ -34,27 +41,29 @@ const NavHeader: FC<Iprops> = () => {
           <Breadcrumb
             items={[
               {
-                title: "Home",
+                title: "首页",
               },
-              {
-                title: <a href="">Application Center</a>,
-              },
-              {
-                title: <a href="">Application List</a>,
-              },
-              {
-                title: "An Application",
-              },
+              // {
+              //   title: <a href="">Application Center</a>,
+              // },
+              // {
+              //   title: <a href="">Application List</a>,
+              // },
+              // {
+              //   title: "An Application",
+              // },
             ]}
           />
         </Space>
       </div>
       <div className={styles.right}>
-        <Dropdown menu={{ items }} trigger={["click"]}>
-          <Space>
-            <span>设置</span>
-            <DownOutlined />
-          </Space>
+        <Switch
+          checkedChildren="夜间"
+          unCheckedChildren="日常"
+          style={{ marginRight: 20 }}
+        />
+        <Dropdown menu={{ items, onClick }} trigger={["click"]}>
+          <span className={styles.nickName}>czh</span>
         </Dropdown>
       </div>
     </div>

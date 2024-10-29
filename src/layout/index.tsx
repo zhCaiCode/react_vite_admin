@@ -1,16 +1,11 @@
 import React, { memo, useState } from "react";
 import type { ReactNode, FC } from "react";
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from "@ant-design/icons";
-import { Button, Layout, Menu, theme } from "antd";
+import { Button, Layout, theme } from "antd";
 import { Watermark } from "antd";
 import styles from "./index.module.less";
 import NavHeader from "./navHeader";
+import Menu from "@/components/Menu";
+import { Outlet } from "react-router-dom";
 const { Header, Sider, Content } = Layout;
 interface Iprops {
   children?: ReactNode;
@@ -25,31 +20,12 @@ const LayoutWrapper: FC<Iprops> = () => {
       <Layout className={styles.layoutWrapper}>
         <Sider trigger={null} collapsible collapsed={collapsed}>
           <div className="demo-logo-vertical" />
-          <Menu
-            theme="dark"
-            mode="inline"
-            defaultSelectedKeys={["1"]}
-            items={[
-              {
-                key: "1",
-                icon: <UserOutlined />,
-                label: "nav 1",
-              },
-              {
-                key: "2",
-                icon: <VideoCameraOutlined />,
-                label: "nav 2",
-              },
-              {
-                key: "3",
-                icon: <UploadOutlined />,
-                label: "nav 3",
-              },
-            ]}
-          />
+          <Menu />
         </Sider>
         <Layout>
-          <Header style={{ padding: 0, background: colorBgContainer }}>
+          <Header
+            style={{ padding: 0, background: colorBgContainer, height: 50 }}
+          >
             {/* <Button
               type="text"
               icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
@@ -62,17 +38,11 @@ const LayoutWrapper: FC<Iprops> = () => {
             /> */}
             <NavHeader />
           </Header>
-
-          <Content
-            style={{
-              margin: "24px 16px",
-              padding: 24,
-              minHeight: 280,
-              background: colorBgContainer,
-              borderRadius: borderRadiusLG,
-            }}
-          >
-            Content
+          <div style={{ backgroundColor: "#fff", height: "60px" }}></div>
+          <Content className={styles.content}>
+            <div className={styles.appWrapper}>
+              <Outlet />
+            </div>
           </Content>
         </Layout>
       </Layout>

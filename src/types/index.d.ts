@@ -1,6 +1,4 @@
-// export interface ResponseResult {
-//   code: number;
-//   msg: string;
-// }
-
-// export type GenericResult<T> = ResponseResult & T;
+export type AllowedValueTypes = string | number | boolean | null | undefined
+export type NestedObject = {
+  [key: string]: AllowedValueTypes | NestedObject
+}

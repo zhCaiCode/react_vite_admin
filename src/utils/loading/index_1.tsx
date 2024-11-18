@@ -11,10 +11,10 @@ export const showLoading = () => {
 }
 
 export const hideLoading = () => {
+  count--
   if (count < 0) return
   if (count === 0) {
     const dom = document.getElementById('loading') as HTMLDivElement
     document.removeChild(dom)
   }
-  count--
 }

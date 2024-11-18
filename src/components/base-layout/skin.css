@@ -17,11 +17,9 @@ html {
   --color-linear-bg-end: rgb(230, 236, 242, 0);
   --color-link-href: rgb(90, 160, 223);
 
-  --color-highlight-bg:yellow;
-  --color-highlight-bg-hover:orange;
-
+  --color-highlight-bg: yellow;
+  --color-highlight-bg-hover: orange;
 }
-
 
 .dark {
   --color-neutral-10: #171717;
@@ -42,7 +40,7 @@ html {
   --color-linear-bg-end: rgba(36, 36, 36, 0.8);
   --color-link-href: rgb(90, 160, 223);
 
-  --color-highlight-bg:#A68800;
+  --color-highlight-bg: #a68800;
 }
 
 /* ::selection {
@@ -61,7 +59,8 @@ html {
 }
 
 /* -webkit-scrollbar-corner: 当同时有垂直滚动条和水平滚动条时交汇的部分 */
-::-webkit-scrollbar-thumb, ::-webkit-scrollbar-corner {
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-corner {
   background: var(--color-neutral-7);
   border-radius: 10px;
 }

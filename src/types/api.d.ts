@@ -1,15 +1,15 @@
 export interface ResponseResult {
-  code: number;
-  msg: string;
+  code: number
+  msg: string
 }
 
 export interface RsultVerify extends ResponseResult {
-  token: string;
-  img: string;
-  captchaEnabled: boolean;
-  uuid: string;
+  token: string
+  img: string
+  captchaEnabled: boolean
+  uuid: string
 }
 
 export interface LoginResult extends ResponseResult {
-  token: string;
+  token: string
 }

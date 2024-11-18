@@ -4,13 +4,13 @@ export default {
    *  @param key {string} storage key
    */
   get(key: string) {
-    const value = localStorage.getItem(key);
-    if (!value) return "";
+    const value = localStorage.getItem(key)
+    if (!value) return ''
     try {
-      return JSON.parse(value);
+      return JSON.parse(value)
     } catch (e) {
-      console.log("storage get error...", e);
-      return value;
+      console.log('storage get error...', e)
+      return value
     }
   },
   /*
@@ -19,15 +19,15 @@ export default {
    * @param value {unkonwn} storage的值
    */
   set(key: string, value: unknown) {
-    localStorage.setItem(key, JSON.stringify(value));
+    localStorage.setItem(key, JSON.stringify(value))
   },
   /*
    * 移除
    */
   remove(key: string) {
-    localStorage.removeItem(key);
+    localStorage.removeItem(key)
   },
   clear() {
-    localStorage.clear();
-  },
-};
+    localStorage.clear()
+  }
+}

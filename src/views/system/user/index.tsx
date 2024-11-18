@@ -1,8 +1,8 @@
-import { memo } from "react";
-import type { ReactNode, FC } from "react";
-import styles from "./index.module.less";
+import { memo } from 'react'
+import type { ReactNode, FC } from 'react'
+import styles from './index.module.less'
 interface Iprops {
-  children?: ReactNode;
+  children?: ReactNode
 }
 const User: FC<Iprops> = () => {
   return (
@@ -20,6 +20,6 @@ const User: FC<Iprops> = () => {
         </div>
       </div>
     </div>
-  );
-};
-export default memo(User);
+  )
+}
+export default memo(User)

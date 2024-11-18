@@ -2,7 +2,7 @@
  * 环境配置封装
  */
 
-type ENV = "dev" | "stg" | "prd";
+type ENV = 'dev' | 'stg' | 'prd'
 
 // let env: ENV = 'dev'
 // if (location.host.indexOf('localhost') > -1) {
@@ -13,35 +13,33 @@ type ENV = "dev" | "stg" | "prd";
 //   env = 'prd'
 // }
 
-const env = (document.documentElement.dataset.env as ENV) || "stg";
+const env = (document.documentElement.dataset.env as ENV) || 'stg'
 
 const config = {
   dev: {
-    baseApi: "/api",
-    uploadApi: "http://api-driver-dev.marsview.cc",
-    cdn: "http://xxx.aliyun.com",
+    baseApi: '/api',
+    uploadApi: 'http://api-driver-dev.marsview.cc',
+    cdn: 'http://xxx.aliyun.com',
     mock: false,
-    mockApi: "https://apifoxmock.com/m1/5332008-0-default/api",
+    mockApi: 'https://apifoxmock.com/m1/5332008-0-default/api'
   },
   stg: {
-    baseApi: "/api",
-    uploadApi: "http://api-driver-stg.marsview.cc",
-    cdn: "http://xxx.aliyun.com",
+    baseApi: '/api',
+    uploadApi: 'http://api-driver-stg.marsview.cc',
+    cdn: 'http://xxx.aliyun.com',
     mock: false,
-    mockApi:
-      "https://www.fastmock.site/mock/5841b82d5672783b6fd62bb2a06aeb1f/api",
+    mockApi: 'https://www.fastmock.site/mock/5841b82d5672783b6fd62bb2a06aeb1f/api'
   },
   prd: {
-    baseApi: "/api",
-    uploadApi: "http://api-driver.marsview.cc",
-    cdn: "http://xxx.aliyun.com",
+    baseApi: '/api',
+    uploadApi: 'http://api-driver.marsview.cc',
+    cdn: 'http://xxx.aliyun.com',
     mock: false,
-    mockApi:
-      "https://www.fastmock.site/mock/5841b82d5672783b6fd62bb2a06aeb1f/api",
-  },
-};
+    mockApi: 'https://www.fastmock.site/mock/5841b82d5672783b6fd62bb2a06aeb1f/api'
+  }
+}
 
 export default {
   env,
-  ...config["dev"],
-};
+  ...config['dev']
+}

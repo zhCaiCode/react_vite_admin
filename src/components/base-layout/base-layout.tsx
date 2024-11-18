@@ -14,16 +14,16 @@ const ContentContainer = styled.div`
   padding: 3vh 4vw;
 `
 function BaseLayout() {
-	return (
-		<>
-			{/* <Header /> */}
-			<ContentContainer className='w-full grow'>
-				<Suspense fallback={<div>loading...</div>}>
-					<Outlet />
-				</Suspense>
-			</ContentContainer>
-			{/* <Footer /> */}
-		</>
-	)
+  return (
+    <>
+      {/* <Header /> */}
+      <ContentContainer className='w-full grow'>
+        <Suspense fallback={<div>loading...</div>}>
+          <Outlet />
+        </Suspense>
+      </ContentContainer>
+      {/* <Footer /> */}
+    </>
+  )
 }
 export default React.memo(BaseLayout)

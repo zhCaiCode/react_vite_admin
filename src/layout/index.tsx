@@ -1,31 +1,29 @@
-import { memo, useState } from "react";
-import type { ReactNode, FC } from "react";
-import { Layout, theme } from "antd";
-import { Watermark } from "antd";
-import styles from "./index.module.less";
-import NavHeader from "./navHeader";
-import Menu from "@/components/Menu";
-import { Outlet } from "react-router-dom";
-const { Header, Sider, Content } = Layout;
+import { memo, useState } from 'react'
+import type { ReactNode, FC } from 'react'
+import { Layout, theme } from 'antd'
+import { Watermark } from 'antd'
+import styles from './index.module.less'
+import NavHeader from './navHeader'
+import Menu from '@/components/Menu'
+import { Outlet } from 'react-router-dom'
+const { Header, Sider, Content } = Layout
 interface Iprops {
-  children?: ReactNode;
+  children?: ReactNode
 }
 const LayoutWrapper: FC<Iprops> = () => {
-  const [collapsed] = useState(false);
+  const [collapsed] = useState(false)
   const {
-    token: { colorBgContainer },
-  } = theme.useToken();
+    token: { colorBgContainer }
+  } = theme.useToken()
   return (
-    <Watermark className={styles.watermarkWrapper} content={"czh"}>
+    <Watermark className={styles.watermarkWrapper} content={'czh'}>
       <Layout className={styles.layoutWrapper}>
         <Sider trigger={null} collapsible collapsed={collapsed}>
-          <div className="demo-logo-vertical" />
+          <div className='demo-logo-vertical' />
           <Menu />
         </Sider>
         <Layout>
-          <Header
-            style={{ padding: 0, background: colorBgContainer, height: 50 }}
-          >
+          <Header style={{ padding: 0, background: colorBgContainer, height: 50 }}>
             {/* <Button
               type="text"
               icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
@@ -38,7 +36,7 @@ const LayoutWrapper: FC<Iprops> = () => {
             /> */}
             <NavHeader />
           </Header>
-          <div style={{ backgroundColor: "#fff", height: "60px" }}></div>
+          <div style={{ backgroundColor: '#fff', height: '60px' }}></div>
           <Content className={styles.content}>
             <div className={styles.appWrapper}>
               <Outlet />
@@ -47,6 +45,6 @@ const LayoutWrapper: FC<Iprops> = () => {
         </Layout>
       </Layout>
     </Watermark>
-  );
-};
-export default memo(LayoutWrapper);
+  )
+}
+export default memo(LayoutWrapper)

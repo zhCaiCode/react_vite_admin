@@ -1,8 +1,8 @@
-import React, { memo } from "react";
+import React, { memo } from 'react'
 interface Iprops {
-  children?: React.ReactNode;
+  children?: React.ReactNode
 }
 const Home: React.FC<Iprops> = () => {
-  return <div>Home</div>;
-};
-export default memo(Home);
+  return <div>Home</div>
+}
+export default memo(Home)

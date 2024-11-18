@@ -1,20 +1,20 @@
-import ReactDOM from "react-dom/client";
-import Loading from "./loading";
-let count = 0;
+import ReactDOM from 'react-dom/client'
+import Loading from './loading'
+let count = 0
 export const showLoading = () => {
   if (count === 0) {
-    const dom = document.createElement("div");
-    dom.setAttribute("id", "loading");
-    ReactDOM.createRoot(dom).render(<Loading />);
+    const dom = document.createElement('div')
+    dom.setAttribute('id', 'loading')
+    ReactDOM.createRoot(dom).render(<Loading />)
   }
-  count++;
-};
+  count++
+}
 
 export const hideLoading = () => {
-  if (count < 0) return;
+  if (count < 0) return
   if (count === 0) {
-    const dom = document.getElementById("loading") as HTMLDivElement;
-    document.removeChild(dom);
+    const dom = document.getElementById('loading') as HTMLDivElement
+    document.removeChild(dom)
   }
-  count--;
-};
+  count--
+}

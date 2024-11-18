@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>订单管理系统</title>
     <style>
-      #iframe{
+      #iframe {
         display: none;
         position: fixed;
         top: 0;
@@ -16,39 +16,39 @@
         height: 100%;
         width: 100%;
       }
-      #root #iframe{
+      #root #iframe {
         display: block;
       }
       #loading {
-          display: flex;
-          position: fixed;
-          background-color: rgba(255, 255, 255, 0.8);
-          top: 0;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          justify-content: center;
-          align-items: center;
-          flex-direction: column;
+        display: flex;
+        position: fixed;
+        background-color: rgba(255, 255, 255, 0.8);
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .loading {
+        animation: rotate 1.5s linear infinite;
+      }
+      .loading--text {
+        font-size: 14px;
+        color: #1890ff;
+      }
+      @keyframes rotate {
+        from {
+          transform: rotate(0deg);
         }
-        .loading {
-          animation: rotate 1.5s linear infinite;
+        to {
+          transform: rotate(360deg);
         }
-        .loading--text{
-          font-size: 14px;
-          color: #1890FF;
-        }
-        @keyframes rotate{
-          from {
-            transform: rotate(0deg);
-          }
-          to{
-            transform: rotate(360deg);
-          }
-        }
-        #root #loading{
-          display: flex;
-        }
+      }
+      #root #loading {
+        display: flex;
+      }
     </style>
   </head>
   <body>

@@ -1,29 +1,29 @@
-type ENV = "dev" | "stage" | "prod";
+type ENV = 'dev' | 'stage' | 'prod'
 
-const env = (document.documentElement.dataset.env as ENV) || "stage";
+const env = (document.documentElement.dataset.env as ENV) || 'stage'
 
 const config = {
   dev: {
-    baseUrl: "/api",
-    uploadUrl: "",
+    baseUrl: '/api',
+    uploadUrl: '',
     mock: true,
-    mockUrl: "",
+    mockUrl: ''
   },
   stage: {
-    baseUrl: "/stage-api",
-    uploadUrl: "",
+    baseUrl: '/stage-api',
+    uploadUrl: '',
     mock: false,
-    mockUrl: "",
+    mockUrl: ''
   },
   prod: {
-    baseUrl: "/prod-api",
-    uploadUrl: "",
+    baseUrl: '/prod-api',
+    uploadUrl: '',
     mock: true,
-    mockUrl: "",
-  },
-};
+    mockUrl: ''
+  }
+}
 
 export default {
   env,
-  ...config[env],
-};
+  ...config[env]
+}

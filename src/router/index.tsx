@@ -1,32 +1,34 @@
-import { getData } from "@/api/home";
-import { formatDate, formatNumber } from "@/utils";
+// import { getData } from "@/api/home";
+// import { formatDate, formatNumber } from "@/utils";
 import Login from "@/views/login/Login";
 
 import { createBrowserRouter, Outlet, useParams } from "react-router-dom";
 // import { Redirect } from "./util";
 import Layout from "@/layout";
+import Welcome from "@/views/welcome";
+import User from "@/views/system/user";
 
-const App = () => {
-  function loadSpin() {
-    //  (document.getElementById('loading') as HTMLDivElement)?.style.setProperty('display','flex')
-    const num = formatNumber("1231323232");
-    console.log(num);
-    console.log(formatDate(new Date(), "yyyy-MM-dd"));
-    getData({ userName: "", userPwd: "" });
-  }
-  return (
-    <div>
-      首页
-      <button
-        onClick={() => {
-          loadSpin();
-        }}
-      >
-        loading
-      </button>
-    </div>
-  );
-};
+// const App = () => {
+//   function loadSpin() {
+//     //  (document.getElementById('loading') as HTMLDivElement)?.style.setProperty('display','flex')
+//     const num = formatNumber("1231323232");
+//     console.log(num);
+//     console.log(formatDate(new Date(), "yyyy-MM-dd"));
+//     getData({ userName: "", userPwd: "" });
+//   }
+//   return (
+//     <div>
+//       首页
+//       <button
+//         onClick={() => {
+//           loadSpin();
+//         }}
+//       >
+//         loading
+//       </button>
+//     </div>
+//   );
+// };
 
 const Goods = () => {
   const params = useParams();
@@ -53,6 +55,16 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
+    children: [
+      {
+        path: "",
+        element: <Welcome />,
+      },
+      {
+        path: "/system/user",
+        element: <User />,
+      },
+    ],
   },
   {
     path: "/login",

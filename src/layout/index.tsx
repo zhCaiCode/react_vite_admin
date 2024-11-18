@@ -1,6 +1,6 @@
-import React, { memo, useState } from "react";
+import { memo, useState } from "react";
 import type { ReactNode, FC } from "react";
-import { Button, Layout, theme } from "antd";
+import { Layout, theme } from "antd";
 import { Watermark } from "antd";
 import styles from "./index.module.less";
 import NavHeader from "./navHeader";
@@ -11,9 +11,9 @@ interface Iprops {
   children?: ReactNode;
 }
 const LayoutWrapper: FC<Iprops> = () => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed] = useState(false);
   const {
-    token: { colorBgContainer, borderRadiusLG },
+    token: { colorBgContainer },
   } = theme.useToken();
   return (
     <Watermark className={styles.watermarkWrapper} content={"czh"}>

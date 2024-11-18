@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { RouterProvider } from "react-router-dom";
 import router from "./router";
-import { ConfigProvider } from "antd";
+import { ConfigProvider, theme } from "antd";
 import "@/assets/styles/index.less";
 
 function App() {
@@ -14,6 +14,7 @@ function App() {
           token: {
             colorPrimary: "#409EFF",
           },
+          algorithm: theme.defaultAlgorithm,
         }}
       >
         <Suspense>

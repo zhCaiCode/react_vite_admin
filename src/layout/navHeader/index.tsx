@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import { memo } from "react";
 import type { ReactNode, FC } from "react";
 import styles from "./index.module.less";
 import { MenuFoldOutlined } from "@ant-design/icons";

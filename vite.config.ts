@@ -12,9 +12,9 @@ export default defineConfig({
     proxy: {
       // '/api':'url'
       '/api': {
-        target: 'http://api.front-end.asia'
+        target: 'http://139.159.163.17:8080',
         // target: "http://127.0.0.1:4523/m1/5332008-0-default",
-        // rewrite:(path)=>path.replace(/^\/api/,''),
+        rewrite: path => path.replace(/^\/api/, '')
       }
     },
     open: false

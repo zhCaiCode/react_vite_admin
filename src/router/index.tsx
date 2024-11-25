@@ -2,11 +2,12 @@
 // import { formatDate, formatNumber } from "@/utils";
 import Login from '@/views/login/Login'
 
-import { createBrowserRouter, Outlet, useParams } from 'react-router-dom'
-// import { Redirect } from "./util";
+import { createBrowserRouter, useParams } from 'react-router-dom'
+import { Redirect } from './util'
 import Layout from '@/layout'
 import Welcome from '@/views/welcome'
-import User from '@/views/system/user'
+import Profile from '@/views/user/profile'
+import Dashboard from '@/views/dashboard'
 
 // const App = () => {
 //   function loadSpin() {
@@ -43,26 +44,33 @@ const Order = () => {
     </>
   )
 }
-const Dashboard = () => {
-  return (
-    <div>
-      <h1>首页</h1>
-      <Outlet />
-    </div>
-  )
-}
+
 const router = createBrowserRouter([
   {
     path: '/',
+    element: <Redirect to='/login' />
+  },
+  {
+    path: '/index',
     element: <Layout />,
     children: [
       {
         path: '',
         element: <Welcome />
-      },
+      }
+      // {
+      //   path: '/system/user',
+      //   element: <User />
+      // }
+    ]
+  },
+  {
+    path: '/user',
+    element: <Layout />,
+    children: [
       {
-        path: '/system/user',
-        element: <User />
+        path: '/user/profile',
+        element: <Profile></Profile>
       }
     ]
   },
@@ -72,8 +80,12 @@ const router = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    element: <Dashboard></Dashboard>,
+    element: <Layout></Layout>,
     children: [
+      {
+        path: '',
+        element: <Dashboard></Dashboard>
+      },
       {
         path: 'goods/:goodsId',
         element: <Goods></Goods>

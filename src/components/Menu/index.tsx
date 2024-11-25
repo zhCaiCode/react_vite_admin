@@ -1,9 +1,10 @@
 import { memo, useState } from 'react'
 import type { ReactNode, FC } from 'react'
 import styles from './index.module.less'
-import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons'
+import { AppstoreOutlined, DesktopOutlined, SettingOutlined } from '@ant-design/icons'
 import type { MenuProps } from 'antd'
 import { Menu } from 'antd'
+import { Link } from 'react-router-dom'
 interface Iprops {
   children?: ReactNode
 }
@@ -11,15 +12,9 @@ interface Iprops {
 type MenuItem = Required<MenuProps>['items'][number]
 const items: MenuItem[] = [
   {
-    key: '1',
-    icon: <MailOutlined />,
-    label: 'Navigation One',
-    children: [
-      { key: '11', label: 'Option 1' },
-      { key: '12', label: 'Option 2' },
-      { key: '13', label: 'Option 3' },
-      { key: '14', label: 'Option 4' }
-    ]
+    key: 'dashbord',
+    icon: <DesktopOutlined />,
+    label: <Link to='/dashboard'>工作台</Link>
   },
   {
     key: '2',
@@ -113,7 +108,7 @@ const SideMenu: FC<Iprops> = () => {
       </div>
       <Menu
         mode='inline'
-        defaultSelectedKeys={['231']}
+        defaultSelectedKeys={['dashbord']}
         openKeys={stateOpenKeys}
         onOpenChange={onOpenChange}
         theme='dark'

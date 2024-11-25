@@ -48,13 +48,14 @@ const Login: FC<Iprops> = () => {
             location.href = href || '/'
           })
         } else {
-          navigate('/')
+          navigate('/index')
         }
       } else {
         message.error(msg)
       }
     } catch (e) {
       setLoading(false)
+      getCode()
       console.log(e)
     }
   }

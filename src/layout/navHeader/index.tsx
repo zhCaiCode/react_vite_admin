@@ -3,34 +3,36 @@ import type { ReactNode, FC } from 'react'
 import styles from './index.module.less'
 import { MenuFoldOutlined } from '@ant-design/icons'
 import { Breadcrumb, Dropdown, MenuProps, Space, Switch } from 'antd'
-import storage from '@/utils/storage'
+
+import { userLogout, useUser } from '@/store'
+import { Link } from 'react-router-dom'
 interface Iprops {
   children?: ReactNode
 }
-const NavHeader: FC<Iprops> = () => {
-  const items: MenuProps['items'] = [
-    {
-      label: <a href='https://www.antgroup.com'>1st menu item</a>,
-      key: '0'
-    },
-    {
-      label: <a href='https://www.aliyun.com'>2nd menu item</a>,
-      key: '1'
-    },
-    {
-      type: 'divider'
-    },
-    {
-      label: '3rd menu item',
-      key: '3'
-    }
-  ]
-  const onClick: MenuProps['onClick'] = ({ key }) => {
+const items: MenuProps['items'] = [
+  {
+    key: 'profile',
+    label: <Link to='/user/profile'>个人中心</Link>
+  },
+  {
+    key: 'logout',
+    label: '退出登录'
+  }
+]
+const onClick: MenuProps['onClick'] = async ({ key }) => {
+  try {
     if (key === 'logout') {
-      storage.remove('token')
+      await userLogout()
       location.href = '/login?callback=' + encodeURIComponent(location.href)
     }
+    if (key === 'profile') {
+    }
+  } catch (e) {
+    console.log(e)
   }
+}
+const NavHeader: FC<Iprops> = () => {
+  const { name } = useUser()
   return (
     <div className={styles.navHeader}>
       <div className={styles.left}>
@@ -59,7 +61,7 @@ const NavHeader: FC<Iprops> = () => {
       <div className={styles.right}>
         <Switch checkedChildren='夜间' unCheckedChildren='日常' style={{ marginRight: 20 }} />
         <Dropdown menu={{ items, onClick }} trigger={['click']}>
-          <span className={styles.nickName}>czh</span>
+          <span className={styles.nickName}>{name}</span>
         </Dropdown>
       </div>
     </div>

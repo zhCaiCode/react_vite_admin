@@ -3,6 +3,7 @@
  */
 
 import { NestedObject } from '@/types'
+import { BlobLike } from '@/types/axios'
 
 export function formatMoney(num: number) {
   return num.toLocaleString('zh-CN', { style: 'currency', currency: 'CNY' })
@@ -17,6 +18,11 @@ export function formatNumber(num: string | number) {
   return a.replace(reg, '$1,')
 }
 
+// export function formatDate(date?: Date) {
+//   let curDate = new Date()
+//   if (date) curDate = date
+//   return curDate.toLocaleString().replaceAll('/', '-')
+// }
 export function formatDate(date?: Date, rules?: string) {
   let curDate = new Date()
   if (date) curDate = date
@@ -58,4 +64,15 @@ export function tansParams(params: NestedObject) {
     }
   }
   return result
+}
+export const blobValidate = async (data: BlobLike): Promise<boolean> => {
+  let b = false
+  try {
+    const text = await data.text()
+    JSON.parse(text)
+    b = false
+  } catch (error) {
+    b = true
+  }
+  return b
 }

@@ -1,10 +1,14 @@
-import { message } from 'antd'
-import axios, { AxiosError, AxiosRequestConfig } from 'axios'
+import { message } from './AntdGlobal'
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse, CustomAxiosRequestConfig } from 'axios'
 import { hideLoading, showLoading } from './loading'
 import { getToken } from './auth'
-import { tansParams } from '.'
+import { blobValidate, tansParams } from '.'
 import cache from '@/plugins/cache'
-
+import errorCode from '@/utils/errorCode'
+import storage from './storage'
+import { NestedObject } from '@/types'
+import { saveAs } from 'file-saver'
+import { ErrorResponse } from '@/types/axios'
 // 是否显示重新登录
 export const isRelogin = { show: false }
 
@@ -88,24 +92,101 @@ instance.interceptors.request.use(
   }
 )
 
-instance.interceptors.response.use(response => {
-  hideLoading()
-  const data = response.data
-  if (data.code === 500001) {
-    message.error(data.msg)
-    localStorage.removeItem('token')
-    location.href = '/login?callback=' + encodeURIComponent(location.href)
-  } else if (data.code < 1) {
+instance.interceptors.response.use(
+  (response: AxiosResponse) => {
     hideLoading()
-    if (response.config.showError === true) {
-      message.error(data.msg)
-      return Promise.reject(data.msg)
+    const code: number = response.data.code || 200
+    const msg = response?.data?.msg || errorCode[`${code}`] || errorCode['default']
+    // 二进制数据则直接返回
+    // prettier-ignore
+    if (response.request.responseType === "blob" || response.request.responseType === "arraybuffer") {
+			return response.data;
+		}
+    const data = response.data
+    if (code === 401) {
+      // hideLoading()
+      if (!isRelogin.show) {
+        message.error(msg)
+        storage.remove('token')
+        // 如果store 有存用户信息 把store信息清除下，并且调用接口
+        // useUserStore().logOut().then(() => {
+        //                 location.href = "/index";
+        //             });
+        // location.href = '/login?callback=' + encodeURIComponent(location.href)
+      }
+      // prettier-ignore
+      return Promise.reject("无效的会话，或者会话已过期，请重新登录。");
+    } else if (code === 500) {
+      message.error(msg)
+      return Promise.reject(new Error(msg || 'Error'))
+    } else if (code !== 200) {
+      message.error(msg)
+      return Promise.reject(data)
     } else {
-      return Promise.resolve(data)
+      return data
     }
+  },
+  error => {
+    console.log('err', error)
+    let msg = error.message || 'error'
+    if (msg == 'Network Error') {
+      msg = '后端接口连接异常'
+    } else if (msg.includes('timeout')) {
+      msg = '系统接口请求超时'
+    } else if (msg.includes('Request failed with status code')) {
+      msg = '系统接口' + msg.substr(msg.length - 3) + '异常'
+    }
+    message.error(msg)
+    return Promise.reject(error)
   }
-  return data
-})
+)
+
+export const download = async (url: string, params: NestedObject, filename: string): Promise<void> => {
+  // prettier-ignore
+  // const downloadLoadingInstance = ElLoading.service({ text: "正在下载数据，请稍候", spinner: "loading", background: "rgba(0, 0, 0, 0.7)", });
+  showLoading()
+  try {
+    const config: CustomAxiosRequestConfig = {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      responseType: 'blob'
+    }
+    let req: AxiosResponse<Blob>
+
+    if (params) {
+      req = await instance.post<Blob>(url, params, {
+        transformRequest: [
+          params => {
+            return tansParams(params)
+          }
+        ],
+        ...config
+      })
+    } else {
+      req = await instance.get<Blob>(url, config)
+    }
+    const blobData = req.data
+    const isLogin = await blobValidate(blobData)
+
+    if (isLogin) {
+      const blob = new Blob([blobData])
+
+      saveAs(blob, filename)
+      console.log('%s ====>>>导出成功', filename)
+    } else {
+      const resText = await blobData.text()
+      const rspObj = JSON.parse(resText) as ErrorResponse
+      // prettier-ignore
+      const errMsg = errorCode[`${rspObj.code}`] || rspObj.msg || errorCode['default']
+      message.error(errMsg)
+    }
+  } catch (error) {
+    console.error(error)
+    message.error('下载文件出现错误，请联系管理员！')
+  } finally {
+    hideLoading()
+  }
+}
+
 export default {
   get<T>(
     url: string,
@@ -114,7 +195,11 @@ export default {
   ): Promise<T> {
     return instance.get(url, { params, ...options })
   },
-  post<T>(url: string, data: object, options: AxiosRequestConfig = { showLoading: true, showError: true }): Promise<T> {
+  post<T>(
+    url: string,
+    data?: object,
+    options: AxiosRequestConfig = { showLoading: true, showError: true }
+  ): Promise<T> {
     return instance.post(url, data, options)
   }
 }

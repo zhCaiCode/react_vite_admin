@@ -20,9 +20,6 @@ const LayoutWrapper: FC<Iprops> = () => {
   } = theme.useToken()
 
   useEffect(() => {
-    for (let i = 0; i < 2400; i++) {
-      getInfo()
-    }
     getInfo()
   }, [])
 
